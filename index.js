@@ -22,17 +22,24 @@ cloudinary.config({
 });
 
 // MySQL database connection
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'zando2'
+const db = mysql.createPool({
+  connectionLimit: 10,
+ host: 'nrh.h.filess.io',
+user: 'phsarapi_becomewest',
+password: 'b06067555798769dc1ec687afabcc2754a75ffad',
+database: 'phsarapi_becomewest',
+port: 3307
 });
 
-db.connect((err) => {
-  if (err) throw err;
-  console.log('MySQL Connected...');
+db.getConnection((err, connection) => {
+  if (err) {
+    console.error('Database connection error:', err.message);
+  } else {
+    console.log('Database connected successfully.');
+    connection.release();
+  }
 });
+
 
 // Multer setup for handling file uploads
 const storage = multer.diskStorage({
