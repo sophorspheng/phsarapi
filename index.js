@@ -24,12 +24,19 @@ cloudinary.config({
 // MySQL database connection
 const db = mysql.createPool({
   connectionLimit: 10,
- host: 'bly8lzj6xutf9s2k61rc-mysql.services.clever-cloud.com',
-user: 'uh2hxkyn6dvplh0q',
-password: '89ZhwLv0lOFI50utVfUU',
-database: 'bly8lzj6xutf9s2k61rc',
-port: 3306
+ host: 'localhost',
+user: 'root',
+password: '',
+database: 'zando2',
+// port: 3306
 });
+
+// host: 'bly8lzj6xutf9s2k61rc-mysql.services.clever-cloud.com',
+// user: 'uh2hxkyn6dvplh0q',
+// password: '89ZhwLv0lOFI50utVfUU',
+// database: 'bly8lzj6xutf9s2k61rc',
+// port: 3306
+
 
 db.getConnection((err, connection) => {
   if (err) {
@@ -111,6 +118,7 @@ app.put('/update-image', upload.single('image'), (req, res) => {
 
     // Get the current image details
     const oldImageUrl = checkResults[0].image_path;
+    const oldPublicId = oldImageUrl.split('/').pop().split('.')[0]; // Extract public ID
 
     // Upload the new image to Cloudinary
     cloudinary.uploader.upload(imageFile.path, (uploadError, result) => {
@@ -118,8 +126,7 @@ app.put('/update-image', upload.single('image'), (req, res) => {
         return res.status(500).json({ error: 'Cloudinary upload failed' });
       }
 
-      // Delete the ohttps://res.cloudinary.com/dqam4so8m/image/upload/v1724934767/pm6lbrbspvqntnxpoas4.pngld image from Cloudinary
-      consthttps://res.cloudinary.com/dqam4so8m/image/upload/v1724934767/pm6lbrbspvqntnxpoas4.png oldPublicId = oldImageUrl.split('/').pop().split('.')[0];
+      // Delete the old image from Cloudinary
       cloudinary.uploader.destroy(oldPublicId, (destroyError) => {
         if (destroyError) {
           return res.status(500).json({ error: 'Failed to delete old image from Cloudinary' });
