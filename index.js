@@ -24,11 +24,11 @@ cloudinary.config({
 // MySQL database connection
 const db = mysql.createPool({
   connectionLimit: 10,
- host: 'nrh.h.filess.io',
-user: 'phsarapi_becomewest',
-password: 'b06067555798769dc1ec687afabcc2754a75ffad',
-database: 'phsarapi_becomewest',
-port: 3307
+ host: 'bly8lzj6xutf9s2k61rc-mysql.services.clever-cloud.com',
+user: 'uh2hxkyn6dvplh0q',
+password: '89ZhwLv0lOFI50utVfUU',
+database: 'bly8lzj6xutf9s2k61rc',
+port: 3306
 });
 
 db.getConnection((err, connection) => {
